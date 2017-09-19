@@ -9,6 +9,9 @@ Webcam/Microphone
 Python: imutils/dlib/cv2
 
 ## Implementation
+First download and save the file: https://drive.google.com/open?id=0B0t3X5WMpC_BNHVTN3htTHNfY0k
+This should be on the same folder as combined.py 
+
 combined.py is the main file. Ensure other files are in same folder. 
 Currently tested for windows. Simply run on cmd, and visual and audio detection systems will run. 
 'q' should break the video process. 
