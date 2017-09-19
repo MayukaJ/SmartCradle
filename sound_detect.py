@@ -9,15 +9,11 @@ import pyaudio
 import audioop
 import sys
 import time
+import requests
+import json
+from Database import write_to_firebase_audio
 #import cv2
 
-CHUNK=1024
-FORMAT=pyaudio.paInt16
-CHANNELS=2
-RATE=44100
-
-THRESH = 1500
-TIME_GAP=10
 
 def restart_line():
 #    Replaces a line printed on command line
@@ -25,6 +21,15 @@ def restart_line():
     sys.stdout.flush()
 
 def sound_main():
+    CHUNK=1024
+    FORMAT=pyaudio.paInt16
+    CHANNELS=2
+    RATE=44100
+    THRESH = 4000
+    TIME_GAP=10
+
+    valueOut=' '    
+    
     p=pyaudio.PyAudio()
     #print p. get_default_host_api_info()
     #print p.get_default_input_device_info()
@@ -58,6 +63,7 @@ def sound_main():
                 sys.stdout.write('Baby Awake             ')
                 sys.stdout.flush() 
                 counter=0
+                valueOut='Baby Awake'
         else:
             counter=0
             counter2+=1
@@ -66,6 +72,10 @@ def sound_main():
                 sys.stdout.write('Baby Asleep         ')
                 sys.stdout.flush() 
                 counter2=0
+                valueOut='Baby Asleep'
+                
+        #upload to firebase
+        write_to_firebase_audio(valueOut)
            
 #        if time.time>timeout:
 #            break
